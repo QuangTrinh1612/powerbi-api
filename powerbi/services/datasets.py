@@ -85,3 +85,26 @@ class Datasets():
         )
 
         return content
+    
+    def execute_query(
+        self,
+        dataset_id: str,
+        dax_query: str
+    ):
+        payload = {
+            "queries": [
+                {
+                    "query": f"{dax_query}"
+                }
+            ],
+            "serializerSettings": {
+                "includeNulls": True
+            }
+        }
+
+        content = self.power_bi_session.make_request(
+            method='post',
+            endpoint=f'myorg/datasets/{dataset_id}/executeQueries',
+            json_payload=payload
+        )
+        return content
