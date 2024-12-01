@@ -21,40 +21,40 @@ class PowerBiClient:
         self.logger = get_logger(self.__class__.__name__)
 
     def apps(self) -> Apps:
-        return Apps(session=self.power_bi_session)
+        return Apps(session=self.session)
 
     def dashboards(self) -> Dashboards:
-        return Dashboards(session=self.power_bi_session)
+        return Dashboards(session=self.session)
 
     def groups(self) -> Groups:
-        return Groups(session=self.power_bi_session)
+        return Groups(session=self.session)
 
     def users(self) -> Users:
-        return Users(session=self.power_bi_session)
+        return Users(session=self.session)
 
     def dataflow_storage_account(self) -> DataflowStorageAccounts:
-        return DataflowStorageAccounts(session=self.power_bi_session)
+        return DataflowStorageAccounts(session=self.session)
 
     def push_datasets(self) -> PushDatasets:
-        return PushDatasets(session=self.power_bi_session)
+        return PushDatasets(session=self.session)
 
     def imports(self) -> Imports:
-        return Imports(session=self.power_bi_session)
+        return Imports(session=self.session)
 
     def reports(self) -> Reports:
-        return Reports(session=self.power_bi_session)
+        return Reports(session=self.session)
 
     def available_features(self) -> AvailableFeatures:
-        return AvailableFeatures(session=self.power_bi_session)
+        return AvailableFeatures(session=self.session)
 
     def capactities(self) -> Capacities:
-        return Capacities(session=self.power_bi_session)
+        return Capacities(session=self.session)
 
     def pipelines(self) -> Pipelines:
-        return Pipelines(session=self.power_bi_session)
+        return Pipelines(session=self.session)
 
     def dataflows(self) -> Dataflows:
-        return Dataflows(session=self.power_bi_session)
+        return Dataflows(session=self.session)
 
     def datasets(self) -> Datasets:
-        return Datasets(session=self.power_bi_session)
+        return Datasets(session=self.session)

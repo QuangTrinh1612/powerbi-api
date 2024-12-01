@@ -1,31 +1,21 @@
-import logging
-from logging.handlers import RotatingFileHandler
 import os
+import yaml
+import logging.config
 
-# Define logging format and log file path
-LOG_FORMAT = "%(asctime)s | %(name)s | %(levelname)s | %(message)s"
-LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
-LOG_FILE = os.getenv("LOG_FILE", f"{os.path.abspath(os.getcwd())}/log/powerbi_api.log")  # Default log file
+# Define path to the logging configuration file
+LOG_CONFIG_FILE = os.getenv("LOG_CONFIG_FILE", "config\logging.yaml")
 
+def setup_logging(config_file: str):
+    """Set up logging using the specified YAML configuration file."""
+    if os.path.exists(config_file):
+        with open(config_file, 'r') as file:
+            config = yaml.safe_load(file)
+        logging.config.dictConfig(config)
+    else:
+        raise FileNotFoundError(f"Logging configuration file {config_file} not found.")
+    
 def get_logger(name: str):
-    """Create and configure a logger."""
-    logger = logging.getLogger(name)
-
-    if not logger.hasHandlers():  # Prevent duplicate handlers
-        # Console handler
-        console_handler = logging.StreamHandler()
-        console_formatter = logging.Formatter(LOG_FORMAT)
-        console_handler.setFormatter(console_formatter)
-        logger.addHandler(console_handler)
-
-        # Rotating file handler
-        file_handler = RotatingFileHandler(
-            LOG_FILE, maxBytes=5 * 1024 * 1024, backupCount=5  # 5 MB per file, 5 backups
-        )
-        file_formatter = logging.Formatter(LOG_FORMAT)
-        file_handler.setFormatter(file_formatter)
-        logger.addHandler(file_handler)
-
-        # Set logging level
-        logger.setLevel(LOG_LEVEL)
-    return logger
+    setup_logging(LOG_CONFIG_FILE)
+    
+    """Retrieve a logger with the specified name."""
+    return logging.getLogger(name)
