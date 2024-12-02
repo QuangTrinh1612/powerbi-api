@@ -88,6 +88,7 @@ class Datasets():
     
     def execute_query(
         self,
+        workspace_id: str,
         dataset_id: str,
         dax_query: str
     ):
@@ -98,13 +99,13 @@ class Datasets():
                 }
             ],
             "serializerSettings": {
-                "includeNulls": True
+                "includeNulls": False
             }
         }
 
         content = self.power_bi_session.make_request(
             method='post',
-            endpoint=f'myorg/datasets/{dataset_id}/executeQueries',
+            endpoint=f'myorg/groups/{workspace_id}/datasets/{dataset_id}/executeQueries',
             json_payload=payload
         )
         return content

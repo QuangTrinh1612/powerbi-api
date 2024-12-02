@@ -7,3 +7,6 @@ API_BASE_URL = "https://api.powerbi.com/v1.0/myorg"
 TENANT_ID = os.getenv("AZURE_TENANT_ID")
 CLIENT_ID = os.getenv("AZURE_CLIENT_ID")
 CLIENT_SECRET = os.getenv("AZURE_CLIENT_SECRET")
+
+WORKSPACE_ID = os.getenv("WORKSPACE_ID")
+DATASET_ID = os.getenv("DATASET_ID")
