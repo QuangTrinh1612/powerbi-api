@@ -69,6 +69,82 @@ powerbi-api/
 ├── requirements.txt                  # Dependencies required for the project
 ```
 
+## Project Diagram
+```mermaid
+flowchart TD
+
+    %% Application Layer
+    subgraph "Application Layer"
+        M["Main (main.py)"]:::main
+    end
+
+    %% Core Library Layer
+    subgraph "Core Library Layer"
+        AC["API Client (client.py)"]:::core
+        SM["Session Management (session.py)"]:::core
+        AU["Authentication (auth.py)"]:::core
+        C["Configuration (config.py)"]:::core
+        LC["Logging Config (logging.yaml)"]:::core
+        LG["Logger (logger.py)"]:::core
+        EA["External API (Microsoft Power BI REST)"]:::external
+    end
+
+    %% Service Modules
+    subgraph "Service Modules"
+        SV["Service Modules (powerbi/services)"]:::service
+    end
+
+    %% Supporting Modules
+    subgraph "Supporting Modules"
+        UT["Utility Functions (utils.py)"]:::support
+        EN["Enumeration Definitions (enums.py)"]:::support
+    end
+
+    %% Relationships
+    M -->|"initiates"| AC
+    M -->|"loads"| C
+    M -->|"loads"| LC
+
+    AC -->|"manages"| SM
+    AC -->|"uses"| AU
+    AC -->|"reads"| C
+    AC -->|"logsTo"| LG
+    AC -->|"calls"| EA
+    AC -->|"utilizes"| UT
+    AC -->|"utilizes"| EN
+
+    AU -->|"injectsToken"| SM
+
+    SV -->|"dependsOn"| AC
+    SV -->|"utilizes"| UT
+    SV -->|"utilizes"| EN
+
+    %% Legend
+    subgraph Legend["Legend"]
+        L1["Main: Light Blue\nCore Modules: Light Green\nService Modules: Light Orange\nSupporting Modules: Light Salmon\nExternal API: Light Purple"]:::legend
+    end
+
+    %% Click Events
+    click M "https://github.com/quangtrinh1612/powerbi-api/blob/main/main.py"
+    click AC "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/client.py"
+    click SM "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/session.py"
+    click AU "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/auth.py"
+    click C "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/config.py"
+    click LC "https://github.com/quangtrinh1612/powerbi-api/blob/main/config/logging.yaml"
+    click LG "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/logger.py"
+    click SV "https://github.com/quangtrinh1612/powerbi-api/tree/main/powerbi/services"
+    click UT "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/utils.py"
+    click EN "https://github.com/quangtrinh1612/powerbi-api/blob/main/powerbi/enums.py"
+
+    %% Styling
+    classDef main fill:#B3E5FC,stroke:#000,stroke-width:1px;
+    classDef core fill:#C8E6C9,stroke:#000,stroke-width:1px;
+    classDef service fill:#FFECB3,stroke:#000,stroke-width:1px;
+    classDef support fill:#FFE0B2,stroke:#000,stroke-width:1px;
+    classDef external fill:#D1C4E9,stroke:#000,stroke-width:1px;
+    classDef legend fill:#E0E0E0,stroke:#000,stroke-width:1px, font-size:10px;
+```
+
 ## Prerequisites
 Before running the project, ensure you have the following:
 
